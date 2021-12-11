@@ -91,7 +91,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="form.transaction" name="transaction2">
+            <Component class="form.home" name="home1">
             </Component>
           </SubComponents>
         </Container>
