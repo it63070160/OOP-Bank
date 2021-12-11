@@ -80,7 +80,7 @@ public class frame extends javax.swing.JFrame implements ActionListener {
         header1 = new component.Header();
         menu1 = new component.menu();
         sp = new javax.swing.JScrollPane();
-        home2 = new form.home();
+        transaction2 = new form.transaction();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -91,7 +91,8 @@ public class frame extends javax.swing.JFrame implements ActionListener {
         menu1.setPreferredSize(new java.awt.Dimension(250, 660));
 
         sp.setBorder(null);
-        sp.setViewportView(home2);
+        sp.setPreferredSize(new java.awt.Dimension(1260, 780));
+        sp.setViewportView(transaction2);
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -101,7 +102,7 @@ public class frame extends javax.swing.JFrame implements ActionListener {
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 1259, Short.MAX_VALUE)
+                    .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
@@ -165,9 +166,9 @@ public class frame extends javax.swing.JFrame implements ActionListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.Header header1;
-    private form.home home2;
     private component.menu menu1;
     private swing.panel panel1;
     private javax.swing.JScrollPane sp;
+    private form.transaction transaction2;
     // End of variables declaration//GEN-END:variables
 }
