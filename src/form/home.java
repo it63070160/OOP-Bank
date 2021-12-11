@@ -3,14 +3,26 @@ package form;
 
 import Model.Model_Card;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import main.Connect;
 import swing.ScrollBar;
 
 public class home extends javax.swing.JPanel {
 
-
+    private Connection con = null;
+    private ResultSet rs = null;
+    private PreparedStatement pst = null;
+    
     public home() {
+        con = Connect.ConnectDB();
         initComponents();
         
         //set card ด้วย [card1-3].setData(new Model_Card("ชื่อบัญชี", "จำนวนเงิน", "เลขบัญชี"));
@@ -25,12 +37,28 @@ public class home extends javax.swing.JPanel {
         jScrollPane1.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         
-        //เพิ่ม transaction ด้วย table.addRow(table.tablerow("ชื่อ", "ประเภท", "เวลา", "จำนวน"));
-        table.addRow(table.tablerow("AccoutnName", "Deposit", "300"));
-        table.addRow(table.tablerow("AccoutnN", "Withdrawn", "350"));
-        table.addRow(table.tablerow("AdcdddcoutnName", "Transfer", "400"));
-        table.addRow(table.tablerow("AccoutdfganName", "Deposit", "340"));
-        table.addRow(table.tablerow("AccoutnNadgffdme", "Deposit", "3230"));
+        //เพิ่ม transaction ด้วย table.addRow(new Object[]{"ชื่อบัญชี", "ประเภทธุรกรรม (Deposit, Withdrawn, Transfer)", "วันที่ เวลา", "จำนวนเงิน"});
+//        table.addRow(new Object[]{"AccoutName ชื่อบัญชี", "Deposit", "12/10/2021-14:38", "200"});
+//        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
+//        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
+//        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
+//        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
+        addRow("username1");
+    }
+    public void addRow(String username){
+        String sql = "SELECT * FROM Transaction";
+        try {
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()){
+                if (rs.getString("Username").equals(username)){
+                    table.addRow(new Object[]{String.format("%010d", rs.getInt("AccountNumber")), rs.getString("Type"), rs.getString("Date"), rs.getDouble("Amount")});
+                }
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(transaction.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 
