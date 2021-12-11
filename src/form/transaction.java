@@ -21,12 +21,12 @@ public class transaction extends javax.swing.JPanel {
         jScrollPane1.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         
-        //เพิ่ม transaction ด้วย table.addRow(new Object[]{"ชื่อบัญชี", "ประเภทธุรกรรม (Deposit, Withdrawn, Transfer)", "วันที่ เวลา", "จำนวนเงิน"});
-        table.addRow(new Object[]{"AccoutName ชื่อบัญชี", "Deposit", "12/10/2021-14:38", "200"});
-        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
-        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
-        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
-        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
+        //เพิ่ม transaction ด้วย table.addRow(table.tablerow("ชื่อ", "ประเภท", "เวลา", "จำนวน"));
+        table.addRow(table.tablerow("AccoutnName", "Deposit", "300"));
+        table.addRow(table.tablerow("AccoutnN", "Withdrawn", "350"));
+        table.addRow(table.tablerow("AdcdddcoutnName", "Transfer", "400"));
+        table.addRow(table.tablerow("AccoutdfganName", "Deposit", "340"));
+        table.addRow(table.tablerow("AccoutnNadgffdme", "Deposit", "3230"));
     }
 
 
