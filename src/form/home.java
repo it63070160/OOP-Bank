@@ -3,16 +3,17 @@ package form;
 
 import Model.*;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import main.Connect;
+import main.frame;
 import swing.ScrollBar;
 
 public class home extends javax.swing.JPanel {
@@ -33,9 +34,6 @@ public class home extends javax.swing.JPanel {
         initComponents();
         
         //set card ด้วย [card1-3].setData(new Model_Card("ชื่อบัญชี", "จำนวนเงิน", "เลขบัญชี")); 
-//        card1.setData(new Model_Card(getFname()+" "+getLname(), String.valueOf(getMoney()), getNumber()));
-//        card1.setData(new Model_Card("AccountName", "Balance", "AccountNum"));
-//        card1.setData(new Model_Card("AccountName", "Balance", "AccountNum"));
         setCard(username);
         
         jScrollPane1.setVerticalScrollBar(new ScrollBar());
@@ -46,12 +44,79 @@ public class home extends javax.swing.JPanel {
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         
         //เพิ่ม transaction ด้วย table.addRow(new Object[]{"ชื่อบัญชี", "ประเภทธุรกรรม (Deposit, Withdrawn, Transfer)", "วันที่ เวลา", "จำนวนเงิน"});
-//        table.addRow(new Object[]{"AccoutName ชื่อบัญชี", "Deposit", "12/10/2021-14:38", "200"});
-//        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
-//        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
-//        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
-//        table.addRow(new Object[]{"AccoutName", "Deposit", "12/10/2021-14:38", "200"});
         addRow(username);
+    }
+    
+    public void addRow(String username){
+        String sql = "SELECT * FROM Transaction WHERE Username = '" + username + "'";
+        try {
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            if (rs.next()){
+                int count_row = 1;
+                rs.last();
+                do{
+                    table.addRow(new Object[]{String.format("%010d", rs.getInt("AccountNumber")), rs.getString("Type"), rs.getString("Date"), rs.getDouble("Amount"), rs.getString("Note")});
+                    count_row++;
+                }
+                while(rs.previous() && count_row <= 8);
+            }
+            else{
+                table.addRow(new Object[]{"No data", "No data", "No data", "No data", "No data"});
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(transaction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void setCard(String username){
+        count_card = 1;
+        String sql = "SELECT * FROM BankInformation WHERE Username = '" + username + "'";
+        try {
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next() && count_card <= 3){
+                if (count_card == 1){
+                    card1.setData(new Model_Card(rs.getString("Firstname")+" "+rs.getString("Lastname"), String.valueOf(rs.getDouble("Money")), String.format("%010d", rs.getInt("Number"))));
+                    count_card++;
+                }
+                else if (count_card == 2){
+                    card2.setData(new Model_Card(rs.getString("Firstname")+" "+rs.getString("Lastname"), String.valueOf(rs.getDouble("Money")), String.format("%010d", rs.getInt("Number"))));
+                    count_card++;
+                }
+                else{
+                    card3.setData(new Model_Card(rs.getString("Firstname")+" "+rs.getString("Lastname"), String.valueOf(rs.getDouble("Money")), String.format("%010d", rs.getInt("Number"))));
+                    count_card++;
+                }
+            }
+            if (count_card == 2){
+                card2.addMouseListener(new MouseAdapter() { 
+                    public void mousePressed(MouseEvent me) { 
+                        frame.setForm(new addaccount(frame.getUsername(), con));
+                    } 
+                   }); 
+                card3.addMouseListener(new MouseAdapter() { 
+                    public void mousePressed(MouseEvent me) { 
+                        frame.setForm(new addaccount(frame.getUsername(), con));
+                    } 
+                   });
+            }
+            else if (count_card == 3){
+                card3.addMouseListener(new MouseAdapter() { 
+                    public void mousePressed(MouseEvent me) { 
+                        frame.setForm(new addaccount(frame.getUsername(), con));
+                    } 
+                   });
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(transaction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void refresh(){
+        setCard(frame.getUsername());
+        table.resetRow();
+        addRow(frame.getUsername());
     }
     
     public String getNumber(){
@@ -118,54 +183,6 @@ public class home extends javax.swing.JPanel {
         return money;
     }
     
-    public void addRow(String username){
-        String sql = "SELECT * FROM Transaction WHERE Username = '" + username + "'";
-        try {
-            pst = con.prepareStatement(sql);
-            rs = pst.executeQuery();
-            if (rs.next()){
-                int count_row = 1;
-                rs.last();
-                do{
-                    table.addRow(new Object[]{String.format("%010d", rs.getInt("AccountNumber")), rs.getString("Type"), rs.getString("Date"), rs.getDouble("Amount"), rs.getString("Note")});
-                    count_row++;
-                }
-                while(rs.previous() && count_row <= 8);
-            }
-            else{
-                table.addRow(new Object[]{"No data", "No data", "No data", "No data", "No data"});
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(transaction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void setCard(String username){
-        count_card = 1;
-        String sql = "SELECT * FROM BankInformation WHERE Username = '" + username + "'";
-        try {
-            pst = con.prepareStatement(sql);
-            rs = pst.executeQuery();
-            while (rs.next() && count_card <= 3){
-                if (count_card == 1){
-                    card1.setData(new Model_Card(rs.getString("Firstname")+" "+rs.getString("Lastname"), String.valueOf(rs.getDouble("Money")), String.format("%010d", rs.getInt("Number"))));
-                    count_card++;
-                }
-                else if (count_card == 2){
-                    card2.setData(new Model_Card(rs.getString("Firstname")+" "+rs.getString("Lastname"), String.valueOf(rs.getDouble("Money")), String.format("%010d", rs.getInt("Number"))));
-                    count_card++;
-                }
-                else{
-                    card3.setData(new Model_Card(rs.getString("Firstname")+" "+rs.getString("Lastname"), String.valueOf(rs.getDouble("Money")), String.format("%010d", rs.getInt("Number"))));
-                    count_card++;
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(transaction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -178,6 +195,7 @@ public class home extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new swing.Table();
+        refresh = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(242, 242, 242));
         setPreferredSize(new java.awt.Dimension(1200, 710));
@@ -224,6 +242,14 @@ public class home extends javax.swing.JPanel {
         table.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(table);
 
+        refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/minorcomponent/refresh.png"))); // NOI18N
+        refresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        refresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
@@ -231,16 +257,26 @@ public class home extends javax.swing.JPanel {
             .addGroup(panel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1123, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE)
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(refresh)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(refresh)
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
@@ -252,7 +288,7 @@ public class home extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE)
                     .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
@@ -267,6 +303,10 @@ public class home extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void refreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshMouseClicked
+        refresh();
+    }//GEN-LAST:event_refreshMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.card card1;
@@ -276,6 +316,7 @@ public class home extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLayeredPane panel;
     private swing.panel panel1;
+    private javax.swing.JLabel refresh;
     private swing.Table table;
     // End of variables declaration//GEN-END:variables
 }

@@ -40,4 +40,13 @@ public class Table extends JTable {
         model.addRow(row);
     }
     
+    public void resetRow(){
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        int rowCount = model.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+    }
+    
 }

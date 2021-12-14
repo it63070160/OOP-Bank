@@ -53,4 +53,17 @@ public class Check_Field {
             return false;
         }
     }
+    
+    public static boolean checkPIN(String p){
+        try {
+            if (p.length() == 6){
+                int d = Integer.parseInt(p);
+                return true;
+            }
+            return false;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
 }

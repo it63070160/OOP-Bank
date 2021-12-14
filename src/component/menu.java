@@ -18,11 +18,8 @@ import swing.ListMenu;
 public class menu extends javax.swing.JPanel {
     
     private EventMenuSelected event;
-    
-    public void addEventMenuSelected(EventMenuSelected event){
-        this.event = event;
-        listMenu1.addEventMenuSelected(event);
-    }
+    private int x;
+    private int y;
     
     public menu() {
         initComponents();
@@ -30,17 +27,49 @@ public class menu extends javax.swing.JPanel {
         listMenu1.setOpaque(false);
         init();
     }
-
+    
+    //เพิ่มเมนู listMenu1.addItem(new Model_Menu([ชื่อ Icon], [ชื่อเมนู], Model_Menu.MenuType.MENU)); (TITLE คือหัวข้อ เป็น Text ธรรมดา กดไม่ได้) (EMPTY คือช่องว่าง เว้นเพื่อจัดเมนูให้สวย)
+    private void init() {
+        listMenu1.addItem(new Model_Menu("login", "Login", Model_Menu.MenuType.MENU));
+        listMenu1.addItem(new Model_Menu("register", "Register", Model_Menu.MenuType.MENU));
+    }
+    
+    protected void paintChildren(Graphics grphcs) {
+        Graphics2D g2 = (Graphics2D)grphcs;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        GradientPaint g = new GradientPaint(0, 0, Color.decode("#021B79"), 0, getHeight(), Color.decode("#0575E6"));
+        g2.setPaint(g);
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+        g2.fillRect(getWidth()-20, 0, getWidth(), getHeight());
+        super.paintChildren(grphcs);
+    }
+    
+    public void initMoving(JFrame frame) {
+        panelMoving.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent me) {
+                x = me.getX();
+                y = me.getY();
+            } 
+        });
+        panelMoving.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent me) {
+                frame.setLocation(me.getXOnScreen()-x, me.getYOnScreen()-y);
+            }
+            
+        });
+    }
+    
+    public void addEventMenuSelected(EventMenuSelected event){
+        this.event = event;
+        listMenu1.addEventMenuSelected(event);
+    }
+    
     public ListMenu<String> getListMenu1() {
         return listMenu1;
     }
     
-    //เพิ่มเมนู listMenu1.addItem(new Model_Menu([ชื่อ Icon], [ชื่อเมนู], Model_Menu.MenuType.MENU)); (TITLE คือหัวข้อ เป็น Text ธรรมดา กดไม่ได้) (EMPTY คือช่องว่าง เว้นเพื่อจัดเมนูให้สวย)
-    private void init() {
-        listMenu1.addItem(new Model_Menu("1", "Login", Model_Menu.MenuType.MENU));
-        listMenu1.addItem(new Model_Menu("2", "Register", Model_Menu.MenuType.MENU));
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -86,36 +115,6 @@ public class menu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    protected void paintChildren(Graphics grphcs) {
-        Graphics2D g2 = (Graphics2D)grphcs;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint g = new GradientPaint(0, 0, Color.decode("#021B79"), 0, getHeight(), Color.decode("#0575E6"));
-        g2.setPaint(g);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-        g2.fillRect(getWidth()-20, 0, getWidth(), getHeight());
-        super.paintChildren(grphcs);
-    }
-    
-    private int x;
-    private int y;
-
-    public void initMoving(JFrame frame) {
-        panelMoving.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent me) {
-                x = me.getX();
-                y = me.getY();
-            } 
-        });
-        panelMoving.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent me) {
-                frame.setLocation(me.getXOnScreen()-x, me.getYOnScreen()-y);
-            }
-            
-        });
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabel1;
     private swing.ListMenu<String> listMenu1;

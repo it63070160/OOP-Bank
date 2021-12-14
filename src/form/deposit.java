@@ -3,13 +3,7 @@ package form;
 
 import Model.Check_Field;
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.text.*;
-import main.Connect;
 import main.frame;
 
 public class deposit extends javax.swing.JPanel {
@@ -24,18 +18,10 @@ public class deposit extends javax.swing.JPanel {
         this.con = con;
         initComponents();
         getAccount();
-        PlainDocument document = (PlainDocument) jPasswordField1.getDocument();
-        document.setDocumentFilter(new DocumentFilter() {
-
-            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                String string = fb.getDocument().getText(0, fb.getDocument().getLength()) + text;
-
-                if (string.length() <= 6) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-
-        });
+    }
+    
+    public void depositMoney(String n, String u, double m){
+        frame.setForm(new pin(u, con, "Deposit", m, n, ""));
     }
     
     public void getAccount(){
@@ -54,50 +40,21 @@ public class deposit extends javax.swing.JPanel {
             System.out.println(ex);
         }
     }
-    
-    public void depositMoney(String n, String u, String p, double m){
-        try{
-            String sql = "SELECT * FROM BankInformation WHERE Number = ("+n+")";
-            pst = con.prepareStatement(sql);
-            rs = pst.executeQuery();
-            while (rs.next()){
-                pin = rs.getString("PIN");
-                double money = rs.getDouble("Money"); 
-                if(p.equals(pin)){
-                    System.out.println("PIN Correct !");
-                    System.out.println("Money : "+rs.getInt("Money")+" (+"+m+") = "+(money+m)+"");
-                    String sql2 = "UPDATE BankInformation SET Money = "+(money+m)+" WHERE Number = ("+n+")";
-                    pst = con.prepareStatement(sql2);
-                    pst.execute();
-                    String sql3 = "SELECT * FROM Transaction WHERE Username = ('"+u+"')";
-                    try {
-                        pst = con.prepareStatement(sql3);
-                        rs = pst.executeQuery();
-                        String sql4 = "insert into Transaction(Username, AccountNumber, Type, Date, Amount) values (?,?,?,?,?)";
-                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-                        pst = con.prepareStatement(sql4);
-                        pst.setString(1, u);
-                        pst.setString(2, n);
-                        pst.setString(3, "Deposit");
-                        pst.setString(4, dtf.format(LocalDateTime.now()));
-                        pst.setDouble(5, m);
-                        pst.execute();
-                        JOptionPane.showMessageDialog(null, "ฝากเงินสำเร็จ", "OOP Bank - Deposit", JOptionPane.PLAIN_MESSAGE);
-                        frame.setForm(new home(username, con));
-                    } catch (SQLException ex) {
-                        Logger.getLogger(transaction.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                else{
-                    System.out.println("PIN Incorrect !");
-                    JOptionPane.showMessageDialog(null, "PIN ไม่ถูกต้อง", "OOP Bank - Deposit", JOptionPane.PLAIN_MESSAGE);
-                    break;
-                }
-            }
-        } 
-        catch (Exception ex) {
-            System.out.println(ex);
-        }
+
+    public JTextField getAmount() {
+        return amount;
+    }
+
+    public void setAmount(JTextField amount) {
+        this.amount = amount;
+    }
+
+    public JComboBox<String> getjComboBox1() {
+        return jComboBox1;
+    }
+
+    public void setjComboBox1(JComboBox<String> jComboBox1) {
+        this.jComboBox1 = jComboBox1;
     }
 
     @SuppressWarnings("unchecked")
@@ -111,8 +68,6 @@ public class deposit extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(242, 242, 242));
         setPreferredSize(new java.awt.Dimension(1200, 770));
@@ -139,11 +94,6 @@ public class deposit extends javax.swing.JPanel {
         jLabel3.setText("Account");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "กรุณาเลือกบัญชี" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("ฝากเงิน");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -151,10 +101,6 @@ public class deposit extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(84, 84, 84));
-        jLabel4.setText("PIN");
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -166,17 +112,15 @@ public class deposit extends javax.swing.JPanel {
                         .addGap(520, 520, 520)
                         .addComponent(jLabel1))
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(472, 472, 472)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(390, 390, 390)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(amount)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addComponent(jComboBox1, 0, 380, Short.MAX_VALUE)
-                            .addComponent(jPasswordField1))))
+                            .addComponent(jComboBox1, 0, 380, Short.MAX_VALUE)))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(482, 482, 482)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(390, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
@@ -188,17 +132,13 @@ public class deposit extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(52, 52, 52)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addGap(64, 64, 64)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -231,14 +171,9 @@ public class deposit extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "โปรดเลือกบัญชี", "OOP Bank - Deposit", JOptionPane.PLAIN_MESSAGE);
         }
         else{
-            depositMoney(Integer.parseInt(((String)jComboBox1.getSelectedItem()).substring(0, 10)) + "", username, String.valueOf(jPasswordField1.getPassword()), Double.parseDouble(amount.getText()));
+            depositMoney(Integer.parseInt(((String)jComboBox1.getSelectedItem()).substring(0, 10)) + "", username, Double.parseDouble(amount.getText()));
         }       
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amount;
@@ -247,8 +182,6 @@ public class deposit extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPasswordField jPasswordField1;
     private swing.panel panel1;
     // End of variables declaration//GEN-END:variables
 }

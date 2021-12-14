@@ -4,53 +4,29 @@ import Model.Check_Field;
 import Model.Model_Menu;
 import event.*;
 import form.*;
-import java.awt.Color;
-import javax.swing.ImageIcon;
+import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import javax.swing.*;
 
 public class frame extends javax.swing.JFrame implements ActionListener {
 
-    public deposit getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(deposit deposit) {
-        this.deposit = deposit;
-    }
-
-    public start_frame getSframe() {
-        return sframe;
-    }
-
-    public void setSframe(start_frame sframe) {
-        this.sframe = sframe;
-    }
-
-    public home getHome() {
-        return home;
-    }
-
-    public void setHome(home home) {
-        this.home = home;
-    }
-
     ImageIcon winlogo = new ImageIcon(getClass().getClassLoader().getResource("minorcomponent/winlogo.png"));
 
     private static String username;
-    private home home;
     private account account;
     private deposit deposit;
-    private withdraw witdrawn;
-    private start_frame sframe;
+    private withdraw withdrawn;
     private login login;
     private register reg;
-    private transaction transaction;
     private Connection con;
     private boolean logout = true;
+    private ResultSet rs = null;
+    private PreparedStatement pst = null;
+    private String pin;
+    private boolean same_user = false;
+    private boolean same_name = false;
+    private String check_username,check_fname,check_lname;
     
     public frame(String u) {
         con = Connect.ConnectDB();
@@ -59,9 +35,7 @@ public class frame extends javax.swing.JFrame implements ActionListener {
         reg = new register();
         reg.getjButton1().addActionListener(this);
         deposit = new deposit(u, con);
-        witdrawn = new withdraw(u, con);
-//        account = new account(u, con);
-//        account.getjButton1().addActionListener(this);
+        withdrawn = new withdraw(u, con);
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         menu1.initMoving(frame.this);
@@ -96,13 +70,13 @@ public class frame extends javax.swing.JFrame implements ActionListener {
                     setForm(new withdraw(username, con));
                 } 
                 else if (index == 4) {
-//                    Transfer
+                    setForm(new transfer(username, con));
                 } 
                 else if (index == 5) {
                     setForm(new transaction(username, con));
                 } 
                 else if (index == 9) {
-//                    About
+                    setForm(new about());
                 }
                 else if (index == 10) {
                     logoutMenu();
@@ -113,6 +87,7 @@ public class frame extends javax.swing.JFrame implements ActionListener {
         });
         setForm(login);
     }
+    
     public static void setForm(JComponent com) {
         mainPanel.removeAll();
         mainPanel.add(com);
@@ -125,17 +100,8 @@ public class frame extends javax.swing.JFrame implements ActionListener {
         acct.getjButton1().addActionListener(this);
     }
     
-    private ResultSet rs = null;
-    private PreparedStatement pst = null;
-    private String pin;
-    private boolean same_user = false;
-    private boolean same_name = false;
-    private String check_username,check_fname,check_lname;
-    
-    
     private void register(String u, String p, String f, String l){
         try{
-//            con = Connect.ConnectDB();
             String sql = "SELECT * FROM BankInformation";
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery();
@@ -222,22 +188,17 @@ public class frame extends javax.swing.JFrame implements ActionListener {
     
     public void logoutMenu(){
         menu1.getListMenu1().resetItem();
-        menu1.getListMenu1().addItem(new Model_Menu("1", "Login", Model_Menu.MenuType.MENU));
-        menu1.getListMenu1().addItem(new Model_Menu("2", "Register", Model_Menu.MenuType.MENU));
-    }
-
-    public static String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+        menu1.getListMenu1().addItem(new Model_Menu("login", "Login", Model_Menu.MenuType.MENU));
+        menu1.getListMenu1().addItem(new Model_Menu("register", "Register", Model_Menu.MenuType.MENU));
     }
     
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource().equals(login.getjButton1())){
             if (!Check_Field.checkUsername(login.getUser().getText())){
                 JOptionPane.showMessageDialog(null, "โปรดกรอกชื่อผู้ใช้\nชื่อผู้ใช้ต้องเป็นตัวอักษรและไม่ใช่ช่องว่าง", "OOP Bank - Login", JOptionPane.PLAIN_MESSAGE);
+            }
+            else if (!Check_Field.checkPIN(String.valueOf(login.getjPasswordField1().getPassword()))){
+                JOptionPane.showMessageDialog(null, "โปรดกรอก PIN\nPINต้องเป็นตัวเลขและมีความยาว 6 ตัวเลข", "OOP Bank - Register", JOptionPane.PLAIN_MESSAGE);
             }
             else{
                 login(login.getUser().getText(), String.valueOf(login.getjPasswordField1().getPassword()));
@@ -246,6 +207,9 @@ public class frame extends javax.swing.JFrame implements ActionListener {
         else if(ae.getSource().equals(reg.getjButton1())){
             if (!Check_Field.checkUsername(reg.getUser().getText())){
                 JOptionPane.showMessageDialog(null, "โปรดกรอกชื่อผู้ใช้\nชื่อผู้ใช้ต้องเป็นตัวอักษรและไม่ใช่ช่องว่าง", "OOP Bank - Register", JOptionPane.PLAIN_MESSAGE);
+            }
+            else if (!Check_Field.checkPIN(String.valueOf(reg.getPinfield().getPassword()))){
+                JOptionPane.showMessageDialog(null, "โปรดกรอก PIN\nPINต้องเป็นตัวเลขและมีความยาว 6 ตัวเลข", "OOP Bank - Register", JOptionPane.PLAIN_MESSAGE);
             }
             else if (!Check_Field.checkFirstname(reg.getFname().getText())){
                 JOptionPane.showMessageDialog(null, "โปรดกรอกชื่อ\nชื่อต้องเป็นตัวอักษรและไม่ใช่ช่องว่าง", "OOP Bank - Register", JOptionPane.PLAIN_MESSAGE);
@@ -258,19 +222,21 @@ public class frame extends javax.swing.JFrame implements ActionListener {
             }
         }
         else if(ae.getSource().equals(account.getjButton1())){
-            System.out.println("add button press at frame");
-            setForm(new addaccount(username, con));
+            
+        }
+        else{
+            setState(ICONIFIED);
         }
     }
-
-    public transaction getTransaction() {
-        return transaction;
+    
+    public static String getUsername() {
+        return username;
     }
 
-    public void setTransaction(transaction transaction) {
-        this.transaction = transaction;
+    public void setUsername(String username) {
+        this.username = username;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -325,38 +291,6 @@ public class frame extends javax.swing.JFrame implements ActionListener {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frame(null).setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private component.Header header1;
     public static javax.swing.JPanel mainPanel;
@@ -364,12 +298,5 @@ public class frame extends javax.swing.JFrame implements ActionListener {
     private swing.panel panel1;
     // End of variables declaration//GEN-END:variables
 
-    public account getAccount() {
-        return account;
-    }
-
-    public void setAccount(account account) {
-        this.account = account;
-    }
 
 }

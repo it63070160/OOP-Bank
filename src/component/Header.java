@@ -7,16 +7,25 @@ import java.awt.RenderingHints;
 
 public class Header extends javax.swing.JPanel {
 
- 
-    public javax.swing.JButton getMin() {
-        return min;
-    }
-
     public Header() {
         initComponents();
         setOpaque(false);
     }
     
+    @Override
+    protected void paintComponent(Graphics grphcs) {
+        Graphics2D g2 = (Graphics2D)grphcs;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(getBackground());
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+        g2.fillRect(0, 0, 25, getHeight());
+        g2.fillRect(getWidth()-25, getHeight()-25, getWidth(), getHeight());
+        super.paintComponent(grphcs);
+    }
+    
+    public javax.swing.JButton getMin() {
+        return min;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -64,21 +73,6 @@ public class Header extends javax.swing.JPanel {
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitActionPerformed
-
-    @Override
-    protected void paintComponent(Graphics grphcs) {
-        Graphics2D g2 = (Graphics2D)grphcs;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(getBackground());
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-        g2.fillRect(0, 0, 25, getHeight());
-        g2.fillRect(getWidth()-25, getHeight()-25, getWidth(), getHeight());
-        super.paintComponent(grphcs);
-    }
-    
-    
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exit;

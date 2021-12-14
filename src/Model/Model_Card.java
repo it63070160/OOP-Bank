@@ -7,7 +7,15 @@ public class Model_Card {
     String name;
     String values;
     String number;
+    
+    public Model_Card() {
+    }
 
+    public Model_Card(String name, String values, String number) {
+        this.name = name;
+        this.values = values;
+        this.number = number;
+    }
 
     public String getName() {
         return name;
@@ -33,16 +41,5 @@ public class Model_Card {
     public void setNumber(String number) {
         this.number = number;
     }
-
-    public Model_Card() {
-    }
-
-    public Model_Card(String name, String values, String number) {
-        this.name = name;
-        this.values = values;
-        this.number = number;
-    }
-    
-    
     
 }

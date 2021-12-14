@@ -1,29 +1,66 @@
 
 package form;
 
+import Model.Check_Field;
 import java.sql.*;
-import java.util.logging.*;
-import Model.Model_Card;
-import java.awt.Color;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import main.Connect;
-import swing.ScrollBar;
+import main.frame;
 
 public class transfer extends javax.swing.JPanel {
 
     private Connection con = null;
     private ResultSet rs = null;
     private PreparedStatement pst = null;
+    private String number;
+    private String username;
     
-    public transfer() {
-        con = Connect.ConnectDB();
+    public transfer(String username, Connection con) {
+        this.username = username;
+        this.con = con;
         initComponents();
-        
-        
+        getAccount();
     }
 
+    public void getAccount(){
+        try{
+            String sql = "SELECT * FROM BankInformation WHERE Username = '"+username+"'";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while (rs.next()){
+                number = rs.getString("Number");
+                String f = rs.getString("Firstname");
+                String l = rs.getString("Lastname");
+                from.addItem(String.format("%010d", Integer.parseInt(number)) + " " + f + " " + l);
+            }
+        } 
+        catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }
+    
+    public void transferMoney(String n, String u, double m, String t){
+        boolean account_found = false;
+        try{
+            String sql = "SELECT * FROM BankInformation WHERE Number = '"+t+"'";
+            pst = con.prepareStatement(sql);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                if(t.equals(String.format("%010d", rs.getInt("Number")))){
+                    account_found = true;
+                    frame.setForm(new pin(u, con, "Transfer", m, n, t));
+                }
+            }
+            if (!account_found){
+                JOptionPane.showMessageDialog(null, "ไม่พบเลขบัญชีปลายทาง", "OOP Bank - Transfer", JOptionPane.PLAIN_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -65,7 +102,7 @@ public class transfer extends javax.swing.JPanel {
 
         from.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "กรุณาเลือกบัญชี" }));
 
-        jButton1.setText("jButton1");
+        jButton1.setText("โอนเงิน");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -75,12 +112,6 @@ public class transfer extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(84, 84, 84));
         jLabel4.setText("Amount");
-
-        amount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                amountActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -100,11 +131,11 @@ public class transfer extends javax.swing.JPanel {
                                 .addComponent(jLabel2)))
                         .addGap(390, 390, 390))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(456, 456, 456))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(503, 503, 503))))
+            .addGroup(panel1Layout.createSequentialGroup()
+                .addGap(482, 482, 482)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,9 +154,9 @@ public class transfer extends javax.swing.JPanel {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
+                .addGap(64, 64, 64)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -151,13 +182,19 @@ public class transfer extends javax.swing.JPanel {
     }//GEN-LAST:event_toActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        if (!Check_Field.checkMoney(amount.getText())){
+            JOptionPane.showMessageDialog(null, "โปรดระบุจำนวนเงินที่ถูกต้อง", "OOP Bank - Transfer", JOptionPane.PLAIN_MESSAGE);
+        }
+        else if (from.getSelectedItem().equals("กรุณาเลือกบัญชี")){
+            JOptionPane.showMessageDialog(null, "โปรดเลือกบัญชี", "OOP Bank - Transfer", JOptionPane.PLAIN_MESSAGE);
+        }
+        else if (to.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "โปรดกรอกเลขบัญชีปลายทาง", "OOP Bank - Transfer", JOptionPane.PLAIN_MESSAGE);
+        }
+        else{
+            transferMoney(Integer.parseInt(((String)from.getSelectedItem()).substring(0, 10)) + "", username, Double.parseDouble(amount.getText()), to.getText());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void amountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_amountActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amount;
