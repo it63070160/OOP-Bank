@@ -2,6 +2,11 @@
 package form;
 
 import Model.Check_Field;
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.sql.*;
 import java.time.*;
 import java.time.format.*;
@@ -248,6 +253,7 @@ public class pin extends javax.swing.JPanel {
                 }
                 catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "เพิ่มบัญชีไม่สำเร็จ", "OOP Bank - Add account", JOptionPane.PLAIN_MESSAGE);
+                    System.out.println(ex);
                 }
             }
             else{
@@ -290,6 +296,9 @@ public class pin extends javax.swing.JPanel {
 
         jPanel6.setOpaque(false);
 
+        btn7.setBackground(new java.awt.Color(4, 115, 227));
+        btn7.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn7.setForeground(new java.awt.Color(255, 255, 255));
         btn7.setText("7");
         btn7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,6 +306,9 @@ public class pin extends javax.swing.JPanel {
             }
         });
 
+        btn8.setBackground(new java.awt.Color(4, 115, 227));
+        btn8.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn8.setForeground(new java.awt.Color(255, 255, 255));
         btn8.setText("8");
         btn8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,6 +316,9 @@ public class pin extends javax.swing.JPanel {
             }
         });
 
+        btn9.setBackground(new java.awt.Color(4, 115, 227));
+        btn9.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn9.setForeground(new java.awt.Color(255, 255, 255));
         btn9.setText("9");
         btn9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,6 +326,9 @@ public class pin extends javax.swing.JPanel {
             }
         });
 
+        btn4.setBackground(new java.awt.Color(4, 115, 227));
+        btn4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn4.setForeground(new java.awt.Color(255, 255, 255));
         btn4.setText("4");
         btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,6 +336,9 @@ public class pin extends javax.swing.JPanel {
             }
         });
 
+        btn5.setBackground(new java.awt.Color(4, 115, 227));
+        btn5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn5.setForeground(new java.awt.Color(255, 255, 255));
         btn5.setText("5");
         btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,6 +346,9 @@ public class pin extends javax.swing.JPanel {
             }
         });
 
+        btn6.setBackground(new java.awt.Color(4, 115, 227));
+        btn6.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn6.setForeground(new java.awt.Color(255, 255, 255));
         btn6.setText("6");
         btn6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,6 +356,9 @@ public class pin extends javax.swing.JPanel {
             }
         });
 
+        btn1.setBackground(new java.awt.Color(4, 115, 227));
+        btn1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn1.setForeground(new java.awt.Color(255, 255, 255));
         btn1.setText("1");
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,6 +366,9 @@ public class pin extends javax.swing.JPanel {
             }
         });
 
+        btn2.setBackground(new java.awt.Color(4, 115, 227));
+        btn2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn2.setForeground(new java.awt.Color(255, 255, 255));
         btn2.setText("2");
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -346,6 +376,9 @@ public class pin extends javax.swing.JPanel {
             }
         });
 
+        btn3.setBackground(new java.awt.Color(4, 115, 227));
+        btn3.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn3.setForeground(new java.awt.Color(255, 255, 255));
         btn3.setText("3");
         btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -353,6 +386,9 @@ public class pin extends javax.swing.JPanel {
             }
         });
 
+        btn0.setBackground(new java.awt.Color(4, 115, 227));
+        btn0.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn0.setForeground(new java.awt.Color(255, 255, 255));
         btn0.setText("0");
         btn0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,6 +396,9 @@ public class pin extends javax.swing.JPanel {
             }
         });
 
+        btn_del.setBackground(new java.awt.Color(4, 115, 227));
+        btn_del.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        btn_del.setForeground(new java.awt.Color(255, 255, 255));
         btn_del.setText("Del");
         btn_del.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -431,7 +470,11 @@ public class pin extends javax.swing.JPanel {
         jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
         jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
+        btn_con.setBackground(new java.awt.Color(4, 115, 227));
+        btn_con.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btn_con.setForeground(new java.awt.Color(255, 255, 255));
         btn_con.setText("ยืนยัน");
+        btn_con.setBorder(null);
         btn_con.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_conActionPerformed(evt);
@@ -466,7 +509,7 @@ public class pin extends javax.swing.JPanel {
                     .addGroup(panel5Layout.createSequentialGroup()
                         .addGap(505, 505, 505)
                         .addComponent(btn_con, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addContainerGap(340, Short.MAX_VALUE))
         );
         panel5Layout.setVerticalGroup(
             panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,12 +519,12 @@ public class pin extends javax.swing.JPanel {
                 .addGap(57, 57, 57)
                 .addComponent(jLabel2)
                 .addGap(31, 31, 31)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_con, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addComponent(btn_con, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

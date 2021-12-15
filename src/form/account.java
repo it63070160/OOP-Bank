@@ -82,10 +82,12 @@ public class account extends javax.swing.JPanel {
 
         panel1.setBackground(new java.awt.Color(255, 255, 255));
         panel1.setPreferredSize(new java.awt.Dimension(1030, 485));
+        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 26)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(98, 98, 98));
         jLabel1.setText("Account");
+        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 31, 175, 57));
 
         jScrollPane1.setBorder(null);
 
@@ -108,6 +110,8 @@ public class account extends javax.swing.JPanel {
         table.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(table);
 
+        panel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 95, 1120, 615));
+
         jButton1.setBackground(new java.awt.Color(255, 204, 51));
         jButton1.setText("Add account");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +119,7 @@ public class account extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        panel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1005, 48, 135, 32));
 
         refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/minorcomponent/refresh.png"))); // NOI18N
         refresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -123,40 +128,7 @@ public class account extends javax.swing.JPanel {
                 refreshMouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(refresh)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
-        );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(refresh)
-                        .addGap(20, 20, 20)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
-        );
+        panel1.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

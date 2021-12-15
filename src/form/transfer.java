@@ -2,6 +2,7 @@
 package form;
 
 import Model.Check_Field;
+import java.awt.Color;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -90,6 +91,16 @@ public class transfer extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(84, 84, 84));
         jLabel2.setText("To");
 
+        to.setBackground(new java.awt.Color(240, 247, 255));
+        to.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
+        to.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                toMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                toMouseExited(evt);
+            }
+        });
         to.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toActionPerformed(evt);
@@ -102,7 +113,11 @@ public class transfer extends javax.swing.JPanel {
 
         from.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "กรุณาเลือกบัญชี" }));
 
+        jButton1.setBackground(new java.awt.Color(4, 115, 227));
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("โอนเงิน");
+        jButton1.setBorder(null);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -112,6 +127,17 @@ public class transfer extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(84, 84, 84));
         jLabel4.setText("Amount");
+
+        amount.setBackground(new java.awt.Color(240, 247, 255));
+        amount.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
+        amount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                amountMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                amountMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -195,6 +221,22 @@ public class transfer extends javax.swing.JPanel {
             transferMoney(Integer.parseInt(((String)from.getSelectedItem()).substring(0, 10)) + "", username, Double.parseDouble(amount.getText()), to.getText());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void toMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toMouseEntered
+        to.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_toMouseEntered
+
+    private void toMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toMouseExited
+        to.setBackground(new Color(240,247,255));
+    }//GEN-LAST:event_toMouseExited
+
+    private void amountMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_amountMouseEntered
+        amount.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_amountMouseEntered
+
+    private void amountMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_amountMouseExited
+       amount.setBackground(new Color(240,247,255));
+    }//GEN-LAST:event_amountMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amount;

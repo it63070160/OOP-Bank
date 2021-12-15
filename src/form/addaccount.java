@@ -2,6 +2,7 @@
 package form;
 
 import Model.Check_Field;
+import java.awt.Color;
 import java.sql.*;
 import javax.swing.*;
 import main.frame;
@@ -80,7 +81,22 @@ public class addaccount extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(84, 84, 84));
         jLabel2.setText("Firstname");
 
+        lastnamefield.setBackground(new java.awt.Color(240, 247, 255));
+        lastnamefield.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
+        lastnamefield.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lastnamefieldMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lastnamefieldMouseExited(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(4, 115, 227));
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("เพิ่มบัญชี");
+        jButton1.setBorder(null);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -90,6 +106,17 @@ public class addaccount extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(84, 84, 84));
         jLabel1.setText("Add account");
+
+        firstnamefield.setBackground(new java.awt.Color(240, 247, 255));
+        firstnamefield.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
+        firstnamefield.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                firstnamefieldMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                firstnamefieldMouseExited(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(84, 84, 84));
@@ -146,7 +173,7 @@ public class addaccount extends javax.swing.JPanel {
                 .addComponent(lastnamefield, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -185,6 +212,22 @@ public class addaccount extends javax.swing.JPanel {
 //        Back to account
         frame.setForm(new account(frame.getUsername(), con));
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void firstnamefieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstnamefieldMouseEntered
+        firstnamefield.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_firstnamefieldMouseEntered
+
+    private void firstnamefieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_firstnamefieldMouseExited
+        firstnamefield.setBackground(new Color(240,247,255));
+    }//GEN-LAST:event_firstnamefieldMouseExited
+
+    private void lastnamefieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lastnamefieldMouseEntered
+        lastnamefield.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_lastnamefieldMouseEntered
+
+    private void lastnamefieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lastnamefieldMouseExited
+        lastnamefield.setBackground(new Color(240,247,255));
+    }//GEN-LAST:event_lastnamefieldMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

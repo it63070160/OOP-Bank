@@ -143,6 +143,7 @@ public class frame extends javax.swing.JFrame implements ActionListener {
     }
     
     private void login(String u, String p){
+        boolean found_username = false;
         try{
             String sql = "SELECT * FROM BankInformation WHERE Username = '"+u+"'";
             pst = con.prepareStatement(sql);
@@ -150,8 +151,9 @@ public class frame extends javax.swing.JFrame implements ActionListener {
             while (rs.next()){
                 pin = rs.getString("PIN");
                 username = rs.getString("Username");
+                found_username = true;
                 if(pin.equals(p) && username.equals(u)){
-                    JOptionPane.showMessageDialog(null, "ยินดีต้อนรับ "+username+ " เข้าสู่ระบบ", "OOP Bank", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "ยินดีต้อนรับ "+username+ " เข้าสู่ระบบ", "OOP Bank - Login", JOptionPane.PLAIN_MESSAGE);
                     setUsername(u);
                     logout = false;
                     loginMenu();
@@ -159,13 +161,17 @@ public class frame extends javax.swing.JFrame implements ActionListener {
                     break;
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", "OOP Bank", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", "OOP Bank - Login", JOptionPane.ERROR_MESSAGE);
                     break;
                 }
             }
             frame.username = u;
+            if(!found_username){
+                JOptionPane.showMessageDialog(null, "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง", "OOP Bank - Login", JOptionPane.ERROR_MESSAGE);
+            }
         }
         catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "กรุณาลองอีกครั้ง", "OOP Bank - Login", JOptionPane.ERROR_MESSAGE);
             System.out.println(ex);
         }
     }
@@ -198,7 +204,7 @@ public class frame extends javax.swing.JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "โปรดกรอกชื่อผู้ใช้\nชื่อผู้ใช้ต้องเป็นตัวอักษรและไม่ใช่ช่องว่าง", "OOP Bank - Login", JOptionPane.PLAIN_MESSAGE);
             }
             else if (!Check_Field.checkPIN(String.valueOf(login.getjPasswordField1().getPassword()))){
-                JOptionPane.showMessageDialog(null, "โปรดกรอก PIN\nPINต้องเป็นตัวเลขและมีความยาว 6 ตัวเลข", "OOP Bank - Register", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "โปรดกรอก PIN\nPINต้องเป็นตัวเลขและมีความยาว 6 ตัวเลข", "OOP Bank - Login", JOptionPane.PLAIN_MESSAGE);
             }
             else{
                 login(login.getUser().getText(), String.valueOf(login.getjPasswordField1().getPassword()));

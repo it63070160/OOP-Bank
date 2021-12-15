@@ -1,6 +1,7 @@
 
 package form;
 
+import java.awt.Color;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.text.*;
@@ -99,13 +100,22 @@ public class register extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(84, 84, 84));
         jLabel2.setText("Username");
 
-        user.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userActionPerformed(evt);
+        user.setBackground(new java.awt.Color(240, 247, 255));
+        user.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
+        user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                userMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                userMouseExited(evt);
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(4, 115, 227));
+        jButton1.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Register");
+        jButton1.setBorder(null);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -116,16 +126,47 @@ public class register extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(84, 84, 84));
         jLabel4.setText("PIN");
 
+        pinfield.setBackground(new java.awt.Color(240, 247, 255));
+        pinfield.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
+        pinfield.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pinfieldMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pinfieldMouseExited(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(84, 84, 84));
         jLabel5.setText("Firstname");
 
+        fname.setBackground(new java.awt.Color(240, 247, 255));
+        fname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
+        fname.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fnameMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fnameMouseExited(evt);
+            }
+        });
         fname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fnameActionPerformed(evt);
             }
         });
 
+        lname.setBackground(new java.awt.Color(240, 247, 255));
+        lname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
+        lname.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lnameMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lnameMouseExited(evt);
+            }
+        });
         lname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lnameActionPerformed(evt);
@@ -207,10 +248,6 @@ public class register extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -222,6 +259,38 @@ public class register extends javax.swing.JPanel {
     private void lnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lnameActionPerformed
+
+    private void userMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseEntered
+        user.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_userMouseEntered
+
+    private void userMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseExited
+        user.setBackground(new Color(240,247,255));
+    }//GEN-LAST:event_userMouseExited
+
+    private void pinfieldMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pinfieldMouseEntered
+        pinfield.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_pinfieldMouseEntered
+
+    private void pinfieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pinfieldMouseExited
+        pinfield.setBackground(new Color(240,247,255));
+    }//GEN-LAST:event_pinfieldMouseExited
+
+    private void fnameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fnameMouseEntered
+        fname.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_fnameMouseEntered
+
+    private void fnameMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fnameMouseExited
+         fname.setBackground(new Color(240,247,255));
+    }//GEN-LAST:event_fnameMouseExited
+
+    private void lnameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lnameMouseEntered
+        lname.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_lnameMouseEntered
+
+    private void lnameMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lnameMouseExited
+        lname.setBackground(new Color(240,247,255));
+    }//GEN-LAST:event_lnameMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

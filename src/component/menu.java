@@ -80,10 +80,10 @@ public class menu extends javax.swing.JPanel {
 
         panelMoving.setOpaque(false);
 
-        JLabel1.setFont(new java.awt.Font("SansSerif", 1, 26)); // NOI18N
+        JLabel1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         JLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        JLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/minorcomponent/logo.png"))); // NOI18N
-        JLabel1.setText("OOP Bank");
+        JLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/minorcomponent/logo2.png"))); // NOI18N
+        JLabel1.setText(" PloiKong");
 
         javax.swing.GroupLayout panelMovingLayout = new javax.swing.GroupLayout(panelMoving);
         panelMoving.setLayout(panelMovingLayout);
