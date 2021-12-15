@@ -34,7 +34,7 @@ public class deposit extends javax.swing.JPanel {
                 number = rs.getString("Number");
                 String f = rs.getString("Firstname");
                 String l = rs.getString("Lastname");
-                jComboBox1.addItem(String.format("%010d", Integer.parseInt(number)) + " " + f + " " + l);
+                jComboBox2.addItem(String.format("%010d", Integer.parseInt(number)) + " " + f + " " + l);
             }
         } 
         catch (Exception ex) {
@@ -43,19 +43,19 @@ public class deposit extends javax.swing.JPanel {
     }
 
     public JTextField getAmount() {
-        return amount;
+        return amount1;
     }
 
     public void setAmount(JTextField amount) {
-        this.amount = amount;
+        this.amount1 = amount;
     }
 
     public JComboBox<String> getjComboBox1() {
-        return jComboBox1;
+        return jComboBox2;
     }
 
     public void setjComboBox1(JComboBox<String> jComboBox1) {
-        this.jComboBox1 = jComboBox1;
+        this.jComboBox2 = jComboBox1;
     }
 
     @SuppressWarnings("unchecked")
@@ -65,9 +65,9 @@ public class deposit extends javax.swing.JPanel {
         panel1 = new swing.panel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        amount = new javax.swing.JTextField();
+        amount1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
@@ -81,43 +81,47 @@ public class deposit extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(84, 84, 84));
         jLabel1.setText("Deposit");
-        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, -1));
+        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(84, 84, 84));
         jLabel2.setText("Amount");
         panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 197, -1, -1));
 
-        amount.setBackground(new java.awt.Color(240, 247, 255));
-        amount.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
-        amount.addMouseListener(new java.awt.event.MouseAdapter() {
+        amount1.setBackground(new java.awt.Color(240, 247, 255));
+        amount1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        amount1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
+        amount1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                amountMouseEntered(evt);
+                amount1MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                amountMouseExited(evt);
+                amount1MouseExited(evt);
             }
         });
-        amount.addActionListener(new java.awt.event.ActionListener() {
+        amount1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                amountActionPerformed(evt);
+                amount1ActionPerformed(evt);
             }
         });
-        panel1.add(amount, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 247, 380, 50));
+        panel1.add(amount1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 247, 380, 50));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(84, 84, 84));
         jLabel3.setText("Account");
         panel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 349, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "กรุณาเลือกบัญชี" }));
-        panel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 399, 380, 50));
+        jComboBox2.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "กรุณาเลือกบัญชี" }));
+        jComboBox2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        panel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 399, 380, 50));
 
         jButton1.setBackground(new java.awt.Color(4, 115, 227));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("ฝากเงิน");
         jButton1.setBorder(null);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -126,7 +130,7 @@ public class deposit extends javax.swing.JPanel {
         panel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 513, 220, 60));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/minorcomponent/deposie_icon.png"))); // NOI18N
-        panel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 80, 50, 50));
+        panel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, 50, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -146,34 +150,34 @@ public class deposit extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void amountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_amountActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (!Check_Field.checkMoney(amount.getText())){
+        if (!Check_Field.checkMoney(amount1.getText())){
             JOptionPane.showMessageDialog(null, "โปรดระบุจำนวนเงินที่ถูกต้อง", "OOP Bank - Deposit", JOptionPane.PLAIN_MESSAGE);
         }
-        else if (jComboBox1.getSelectedItem().equals("กรุณาเลือกบัญชี")){
+        else if (jComboBox2.getSelectedItem().equals("กรุณาเลือกบัญชี")){
             JOptionPane.showMessageDialog(null, "โปรดเลือกบัญชี", "OOP Bank - Deposit", JOptionPane.PLAIN_MESSAGE);
         }
         else{
-            depositMoney(Integer.parseInt(((String)jComboBox1.getSelectedItem()).substring(0, 10)) + "", username, Double.parseDouble(amount.getText()));
-        }       
+            depositMoney(Integer.parseInt(((String)jComboBox2.getSelectedItem()).substring(0, 10)) + "", username, Double.parseDouble(amount1.getText()));
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void amountMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_amountMouseEntered
-        amount.setBackground(new Color(255,255,255));
-    }//GEN-LAST:event_amountMouseEntered
+    private void amount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amount1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_amount1ActionPerformed
 
-    private void amountMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_amountMouseExited
-       amount.setBackground(new Color(240,247,255));
-    }//GEN-LAST:event_amountMouseExited
+    private void amount1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_amount1MouseExited
+        amount1.setBackground(new Color(240,247,255));
+    }//GEN-LAST:event_amount1MouseExited
+
+    private void amount1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_amount1MouseEntered
+        amount1.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_amount1MouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField amount;
+    private javax.swing.JTextField amount1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

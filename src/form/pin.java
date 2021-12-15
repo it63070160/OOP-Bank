@@ -38,6 +38,7 @@ public class pin extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
         PlainDocument document = (PlainDocument) jPasswordField1.getDocument();
+        jPasswordField1.setEchoChar('\u25CF');
         document.setDocumentFilter(new DocumentFilter() {
 
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
@@ -240,12 +241,22 @@ public class pin extends javax.swing.JPanel {
                     pst = con.prepareStatement(sql);
                     rs = pst.executeQuery();
                     if (rs.next()){
-                        sql = "insert into BankInformation(Username, Firstname, Lastname, PIN) values (?,?,?,?)";
+                        int n = (int)(Math.random() * 99999999) + 1;
+                        String sql_check = "SELECT * FROM BankInformation WHERE Number = (" + n + ")";
+                        pst = con.prepareStatement(sql_check);
+                        rs = pst.executeQuery();
+                        while (rs.next()){
+                            n = (int)(Math.random() * 99999999) + 1;
+                            pst = con.prepareStatement(sql_check);
+                            rs = pst.executeQuery();
+                        }
+                        sql = "insert into BankInformation(Username, Firstname, Lastname, PIN, Number) values (?,?,?,?,?)";
                         pst = con.prepareStatement(sql);
                         pst.setString(1, username);
                         pst.setString(2, addaccount.getFname());
                         pst.setString(3, addaccount.getLname());
                         pst.setString(4, String.valueOf(jPasswordField1.getPassword()));
+                        pst.setString(5, n+"");
                         pst.execute();
                     }
                     JOptionPane.showMessageDialog(null, "เพิ่มบัญชีสำเร็จ", "OOP Bank - Add account", JOptionPane.PLAIN_MESSAGE);
@@ -300,6 +311,7 @@ public class pin extends javax.swing.JPanel {
         btn7.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn7.setForeground(new java.awt.Color(255, 255, 255));
         btn7.setText("7");
+        btn7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn7ActionPerformed(evt);
@@ -310,6 +322,7 @@ public class pin extends javax.swing.JPanel {
         btn8.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn8.setForeground(new java.awt.Color(255, 255, 255));
         btn8.setText("8");
+        btn8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn8ActionPerformed(evt);
@@ -320,6 +333,7 @@ public class pin extends javax.swing.JPanel {
         btn9.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn9.setForeground(new java.awt.Color(255, 255, 255));
         btn9.setText("9");
+        btn9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn9ActionPerformed(evt);
@@ -330,6 +344,7 @@ public class pin extends javax.swing.JPanel {
         btn4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn4.setForeground(new java.awt.Color(255, 255, 255));
         btn4.setText("4");
+        btn4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn4ActionPerformed(evt);
@@ -340,6 +355,7 @@ public class pin extends javax.swing.JPanel {
         btn5.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn5.setForeground(new java.awt.Color(255, 255, 255));
         btn5.setText("5");
+        btn5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn5ActionPerformed(evt);
@@ -350,6 +366,7 @@ public class pin extends javax.swing.JPanel {
         btn6.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn6.setForeground(new java.awt.Color(255, 255, 255));
         btn6.setText("6");
+        btn6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn6ActionPerformed(evt);
@@ -360,6 +377,7 @@ public class pin extends javax.swing.JPanel {
         btn1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn1.setForeground(new java.awt.Color(255, 255, 255));
         btn1.setText("1");
+        btn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn1ActionPerformed(evt);
@@ -370,6 +388,7 @@ public class pin extends javax.swing.JPanel {
         btn2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn2.setForeground(new java.awt.Color(255, 255, 255));
         btn2.setText("2");
+        btn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn2ActionPerformed(evt);
@@ -380,6 +399,7 @@ public class pin extends javax.swing.JPanel {
         btn3.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn3.setForeground(new java.awt.Color(255, 255, 255));
         btn3.setText("3");
+        btn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn3ActionPerformed(evt);
@@ -390,6 +410,7 @@ public class pin extends javax.swing.JPanel {
         btn0.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn0.setForeground(new java.awt.Color(255, 255, 255));
         btn0.setText("0");
+        btn0.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn0ActionPerformed(evt);
@@ -400,6 +421,7 @@ public class pin extends javax.swing.JPanel {
         btn_del.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         btn_del.setForeground(new java.awt.Color(255, 255, 255));
         btn_del.setText("Del");
+        btn_del.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_del.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_delActionPerformed(evt);
@@ -468,6 +490,7 @@ public class pin extends javax.swing.JPanel {
 
         jPasswordField1.setEditable(false);
         jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
+        jPasswordField1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         btn_con.setBackground(new java.awt.Color(4, 115, 227));
@@ -475,6 +498,7 @@ public class pin extends javax.swing.JPanel {
         btn_con.setForeground(new java.awt.Color(255, 255, 255));
         btn_con.setText("ยืนยัน");
         btn_con.setBorder(null);
+        btn_con.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_con.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_conActionPerformed(evt);
@@ -482,7 +506,8 @@ public class pin extends javax.swing.JPanel {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("<- Back");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/minorcomponent/back.png"))); // NOI18N
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
@@ -494,37 +519,36 @@ public class pin extends javax.swing.JPanel {
         panel5Layout.setHorizontalGroup(
             panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel5Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel3)
+                .addGap(250, 250, 250)
                 .addGroup(panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel5Layout.createSequentialGroup()
-                        .addGap(520, 520, 520)
+                        .addGap(190, 190, 190)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panel5Layout.createSequentialGroup()
-                        .addGap(330, 330, 330)
-                        .addGroup(panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panel5Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel3))
-                    .addGroup(panel5Layout.createSequentialGroup()
-                        .addGap(505, 505, 505)
+                        .addGap(175, 175, 175)
                         .addComponent(btn_con, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addContainerGap(335, Short.MAX_VALUE))
         );
         panel5Layout.setVerticalGroup(
             panel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel5Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel3)
-                .addGap(57, 57, 57)
+                .addContainerGap(686, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel5Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
                 .addComponent(jLabel2)
-                .addGap(31, 31, 31)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_con, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(52, 52, 52))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -540,7 +564,7 @@ public class pin extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(panel5, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
+                .addComponent(panel5, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents

@@ -68,6 +68,7 @@ public class withdraw extends javax.swing.JPanel {
         panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 197, -1, -1));
 
         amount.setBackground(new java.awt.Color(240, 247, 255));
+        amount.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         amount.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
         amount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -84,14 +85,17 @@ public class withdraw extends javax.swing.JPanel {
         jLabel3.setText("Account");
         panel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 349, -1, -1));
 
+        jComboBox1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "กรุณาเลือกบัญชี" }));
+        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 399, 380, 50));
 
         jButton1.setBackground(new java.awt.Color(4, 115, 227));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("ถอนเงิน");
         jButton1.setBorder(null);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -102,10 +106,10 @@ public class withdraw extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(84, 84, 84));
         jLabel1.setText("Withdrawn");
-        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 92, -1, -1));
+        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/minorcomponent/withdraw_icon.png"))); // NOI18N
-        panel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 50, 40));
+        panel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 50, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -92,6 +92,7 @@ public class transfer extends javax.swing.JPanel {
         jLabel2.setText("To");
 
         to.setBackground(new java.awt.Color(240, 247, 255));
+        to.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         to.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
         to.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -111,13 +112,16 @@ public class transfer extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(84, 84, 84));
         jLabel3.setText("From");
 
+        from.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         from.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "กรุณาเลือกบัญชี" }));
+        from.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton1.setBackground(new java.awt.Color(4, 115, 227));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("โอนเงิน");
         jButton1.setBorder(null);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -129,6 +133,7 @@ public class transfer extends javax.swing.JPanel {
         jLabel4.setText("Amount");
 
         amount.setBackground(new java.awt.Color(240, 247, 255));
+        amount.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         amount.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
         amount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -216,6 +221,9 @@ public class transfer extends javax.swing.JPanel {
         }
         else if (to.getText().equals("")){
             JOptionPane.showMessageDialog(null, "โปรดกรอกเลขบัญชีปลายทาง", "OOP Bank - Transfer", JOptionPane.PLAIN_MESSAGE);
+        }
+        else if (((String)from.getSelectedItem()).substring(0, 10).equals(to.getText())){
+            JOptionPane.showMessageDialog(null, "เลขบัญชีต้นทางและปลายทางไม่สามารถเหมือนกันได้", "OOP Bank - Transfer", JOptionPane.PLAIN_MESSAGE);
         }
         else{
             transferMoney(Integer.parseInt(((String)from.getSelectedItem()).substring(0, 10)) + "", username, Double.parseDouble(amount.getText()), to.getText());

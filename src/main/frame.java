@@ -127,12 +127,22 @@ public class frame extends javax.swing.JFrame implements ActionListener {
                 same_name = false;
             }
             else{
-                sql = "insert into BankInformation(Username, PIN, Firstname, Lastname) values (?,?,?,?)";
+                int n = (int)(Math.random() * 99999999) + 1;
+                String sql_check = "SELECT * FROM BankInformation WHERE Number = (" + n + ")";
+                pst = con.prepareStatement(sql_check);
+                rs = pst.executeQuery();
+                while (rs.next()){
+                    n = (int)(Math.random() * 99999999) + 1;
+                    pst = con.prepareStatement(sql_check);
+                    rs = pst.executeQuery();
+                }
+                sql = "insert into BankInformation(Username, PIN, Firstname, Lastname, Number) values (?,?,?,?,?)";
                 pst = con.prepareStatement(sql);
                 pst.setString(1, u);
                 pst.setString(2, p);
                 pst.setString(3, f);
                 pst.setString(4, l);
+                pst.setString(5, n+"");
                 pst.execute();
                 login(u,p);
             }
@@ -199,7 +209,10 @@ public class frame extends javax.swing.JFrame implements ActionListener {
     }
     
     public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource().equals(login.getjButton1())){
+        if (ae.getSource().equals(header1.getMin())) {
+            setState(ICONIFIED);
+        }
+        else if(ae.getSource().equals(login.getjButton1())){
             if (!Check_Field.checkUsername(login.getUser().getText())){
                 JOptionPane.showMessageDialog(null, "โปรดกรอกชื่อผู้ใช้\nชื่อผู้ใช้ต้องเป็นตัวอักษรและไม่ใช่ช่องว่าง", "OOP Bank - Login", JOptionPane.PLAIN_MESSAGE);
             }
@@ -229,9 +242,6 @@ public class frame extends javax.swing.JFrame implements ActionListener {
         }
         else if(ae.getSource().equals(account.getjButton1())){
             
-        }
-        else{
-            setState(ICONIFIED);
         }
     }
     

@@ -18,6 +18,7 @@ public class login extends javax.swing.JPanel {
         con = Connect.ConnectDB();
         initComponents();
         PlainDocument document = (PlainDocument) jPasswordField1.getDocument();
+        jPasswordField1.setEchoChar('\u25cf');
         document.setDocumentFilter(new DocumentFilter() {
 
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
@@ -99,6 +100,7 @@ public class login extends javax.swing.JPanel {
         panel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 440, 40, 30));
 
         user.setBackground(new java.awt.Color(240, 247, 255));
+        user.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         user.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
         user.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -117,6 +119,7 @@ public class login extends javax.swing.JPanel {
         jButton1.setFont(new java.awt.Font("SansSerif", 0, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Login");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 640, 220, 60));
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
@@ -128,6 +131,7 @@ public class login extends javax.swing.JPanel {
         panel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 560, 40, 40));
 
         jPasswordField1.setBackground(new java.awt.Color(240, 247, 255));
+        jPasswordField1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jPasswordField1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
         jPasswordField1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

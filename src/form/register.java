@@ -17,6 +17,7 @@ public class register extends javax.swing.JPanel {
         con = Connect.ConnectDB();
         initComponents();
         PlainDocument document = (PlainDocument) pinfield.getDocument();
+        pinfield.setEchoChar('\u25cf');
         document.setDocumentFilter(new DocumentFilter() {
 
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
@@ -101,6 +102,7 @@ public class register extends javax.swing.JPanel {
         jLabel2.setText("Username");
 
         user.setBackground(new java.awt.Color(240, 247, 255));
+        user.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         user.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
         user.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -116,6 +118,7 @@ public class register extends javax.swing.JPanel {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Register");
         jButton1.setBorder(null);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -127,6 +130,7 @@ public class register extends javax.swing.JPanel {
         jLabel4.setText("PIN");
 
         pinfield.setBackground(new java.awt.Color(240, 247, 255));
+        pinfield.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         pinfield.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
         pinfield.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -142,6 +146,7 @@ public class register extends javax.swing.JPanel {
         jLabel5.setText("Firstname");
 
         fname.setBackground(new java.awt.Color(240, 247, 255));
+        fname.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         fname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
         fname.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -158,6 +163,7 @@ public class register extends javax.swing.JPanel {
         });
 
         lname.setBackground(new java.awt.Color(240, 247, 255));
+        lname.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         lname.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(158, 173, 210), 2, true));
         lname.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -187,9 +193,6 @@ public class register extends javax.swing.JPanel {
                         .addGap(520, 520, 520)
                         .addComponent(jLabel1))
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(470, 470, 470)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(390, 390, 390)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -201,15 +204,18 @@ public class register extends javax.swing.JPanel {
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel4)
                                 .addComponent(pinfield)
-                                .addComponent(fname)))))
+                                .addComponent(fname))))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(469, 469, 469)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(390, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel1)
-                .addGap(50, 50, 50)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,9 +231,9 @@ public class register extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(lname, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5))
+                .addGap(45, 45, 45))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -249,7 +255,7 @@ public class register extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void fnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnameActionPerformed

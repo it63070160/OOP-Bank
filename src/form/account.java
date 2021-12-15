@@ -87,7 +87,7 @@ public class account extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 26)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(98, 98, 98));
         jLabel1.setText("Account");
-        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 31, 175, 57));
+        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 31, 110, 57));
 
         jScrollPane1.setBorder(null);
 
@@ -114,6 +114,7 @@ public class account extends javax.swing.JPanel {
 
         jButton1.setBackground(new java.awt.Color(255, 204, 51));
         jButton1.setText("Add account");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
